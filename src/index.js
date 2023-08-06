@@ -6,7 +6,6 @@ function getWeather(query='london') {
   const res = fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                  console.log('from fetch', data)
                   return data;
                 })
                 .catch(err => console.log('eRRor', err))
@@ -27,4 +26,5 @@ function processData(data) {
 }
 
 
-getWeather('la').then(data => console.log(data)).catch(err => console.log('cant process data'))
+//getWeather('la').then(data => console.log(data)).catch(err => console.log('cant process data'))
+getWeather('bedford').then(data => console.log(processData(data)))
