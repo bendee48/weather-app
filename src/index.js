@@ -1,16 +1,16 @@
 const apiKey = '441a55bf31ca493eadd235239231704';
 
 // Call api {returns Promise}
-function getWeather(query='london') {
+function callAPI(query='london') {
   const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${query}`;
-  const res = fetch(url)
+  const result = fetch(url)
                 .then(response => response.json())
                 .then(data => {
                   return data;
                 })
                 .catch(err => console.log('eRRor', err))
 
-  return res;
+  return result;
 }
 
 // Process json returned from API for usable info
@@ -25,6 +25,25 @@ function processData(data) {
   return { tempC, tempF, condition, icon, country, area }
 }
 
+// Grab search form
+const form = document.querySelector('.searchForm');
+const queryBox = document.getElementById('queryBox');
+form.addEventListener('submit', getQueryTerm);
+
+// Extract query from search form
+function getQueryTerm(e) {
+  e.preventDefault();
+  const searchData = new FormData(e.target);
+  const query = searchData.get('query');
+  queryBox.value = '';
+  getWeather(query);
+}
+
+// Get Weather { String: query }
+function getWeather(query) {
+  callAPI(query).then(data => console.log(processData(data)));
+}
+
 
 //getWeather('la').then(data => console.log(data)).catch(err => console.log('cant process data'))
-getWeather('bedford').then(data => console.log(processData(data)))
+//getWeather(getQueryTerm()).then(data => console.log(data))
