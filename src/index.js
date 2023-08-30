@@ -41,7 +41,24 @@ function getQueryTerm(e) {
 
 // Get Weather { String: query }
 function getWeather(query) {
-  callAPI(query).then(data => console.log(processData(data)));
+  callAPI(query).then(data => {
+    displayWeather(processData(data));
+  });
+}
+
+// Display Weather
+function displayWeather(data) {
+  const place = document.querySelector('.place');
+  const desc = document.querySelector('.description');
+  const icon = document.querySelector('.icon');
+  const tempC = document.querySelector('.temp_c');
+  const tempF = document.querySelector('.temp_f');
+
+  place.textContent = `${data.area}, ${data.country}`;
+  desc.textContent = data.condition;
+  icon.src = data.icon;
+  tempC.textContent = data.tempC;
+  tempF.textContent = data.tempF;
 }
 
 
