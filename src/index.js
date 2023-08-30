@@ -46,7 +46,18 @@ function getWeather(query) {
   });
 }
 
-// Display Weather
+/*
+ * Displays weather.
+ *
+ * @param {Object} data - Weather data object containing the following properties:
+ * @param {string} data.area - The name of the city or area.
+ * @param {string} data.country - The name of the country.
+ * @param {string} data.condition - The weather condition (e.g., "Sunny", "Cloudy").
+ * @param {string} data.icon - The URL of the weather icon image.
+ * @param {number} data.tempC - The temperature in Celsius.
+ * @param {number} data.tempF - The temperature in Fahrenheit.
+ */
+
 function displayWeather(data) {
   const place = document.querySelector('.place');
   const desc = document.querySelector('.description');
