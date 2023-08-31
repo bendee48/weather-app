@@ -1,3 +1,5 @@
+import displayWeather from "./displayWeather";
+
 const apiKey = '441a55bf31ca493eadd235239231704';
 
 // Call api {returns Promise}
@@ -39,39 +41,17 @@ function getQueryTerm(e) {
   getWeather(query);
 }
 
-// Get Weather { String: query }
-function getWeather(query) {
-  callAPI(query).then(data => {
-    displayWeather(processData(data));
-  });
-}
-
 /*
- * Displays weather.
- *
- * @param {Object} data - Weather data object containing the following properties:
- * @param {string} data.area - The name of the city or area.
- * @param {string} data.country - The name of the country.
- * @param {string} data.condition - The weather condition (e.g., "Sunny", "Cloudy").
- * @param {string} data.icon - The URL of the weather icon image.
- * @param {number} data.tempC - The temperature in Celsius.
- * @param {number} data.tempF - The temperature in Fahrenheit.
- */
-
-function displayWeather(data) {
-  const place = document.querySelector('.place');
-  const desc = document.querySelector('.description');
-  const icon = document.querySelector('.icon');
-  const tempC = document.querySelector('.temp_c');
-  const tempF = document.querySelector('.temp_f');
-
-  place.textContent = `${data.area}, ${data.country}`;
-  desc.textContent = data.condition;
-  icon.src = data.icon;
-  tempC.textContent = data.tempC;
-  tempF.textContent = data.tempF;
+  Calls API then displays results
+  @param {string} query - Search term eg 'London', 'Orlando', 'Copenhagen Denmark' etc
+*/
+function getWeather(query) {
+  callAPI(query)
+    .then(data => {
+      displayWeather.updateElements(processData(data));
+    })
+    .catch(e => console.log('Something done went wrong', e));
 }
-
 
 //getWeather('la').then(data => console.log(data)).catch(err => console.log('cant process data'))
 //getWeather(getQueryTerm()).then(data => console.log(data))
