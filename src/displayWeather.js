@@ -22,8 +22,8 @@ const displayWeather = (()=> {
       place.textContent = `${data.area}, ${data.country}`;
       desc.textContent = data.condition;
       icon.src = data.icon;
-      tempC.textContent = data.tempC;
-      tempF.textContent = data.tempF;
+      tempC.textContent = data.tempC + ' \u00B0C';
+      tempF.textContent = data.tempF + ' \u2109';
     }
 
     return { updateElements };
