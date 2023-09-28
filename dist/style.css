@@ -75,7 +75,7 @@ select {
   'opsz' 48
 }
 
-/* Main Styling */
+/*** Main Styling ***/
 
 body {
   font-family: Arial, sans-serif;
@@ -131,4 +131,25 @@ main.container {
 
 main.container h1.place {
   text-align: center;
+}
+
+/* Description */
+
+.description {
+  font-size: 2rem;
+}
+
+/* Icon */
+
+.icon {
+  width: 140px;
+  visibility: hidden;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px 5px rgba(255, 211, 253, 0.408);
+}
+
+/* Temps */
+
+.temps {
+  font-size: 1.3rem;
 }
