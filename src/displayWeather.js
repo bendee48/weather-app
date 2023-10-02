@@ -1,13 +1,67 @@
-// Selects display HTML elements and updates targets with weather data
+import loader from './loader';
+
+/**
+ * Module for creating and displaying elements for weather data.
+ * @module displayWeather
+ */
 
 const displayWeather = (()=> {
     // Target HTML display elements
-    const place = document.querySelector('.place');
-    const desc = document.querySelector('.description');
-    const icon = document.querySelector('.icon');
-    const tempC = document.querySelector('.temp_c');
-    const tempF = document.querySelector('.temp_f');
+    const content = document.querySelector('.content');
+    // Create HTML display elements
+    const place = createPlaceTitle();
+    const desc = createDescription();
+    const icon = createIcon();
+    const tempC = createTempC();
+    const tempF = createTempF();
 
+    
+    function createPlaceTitle() {
+      const place = document.createElement('h1');
+      place.classList.add('place');
+      
+      return place;
+    }
+    
+    function createDescription() {
+      const description = document.createElement('p');
+      description.classList.add('description');
+      
+      return description;
+    }
+    
+    function createIcon() {
+      const icon = document.createElement('img');
+      icon.classList.add('icon');
+      icon.src = '#';
+      icon.alt = 'Weather Icon'
+      
+      return icon;
+    }
+
+    function createTempC() {
+      const temp = document.createElement('p');
+      temp.classList.add('temp_c', 'temps');
+      
+      return temp;
+    }
+
+    function createTempF() {
+      const temp = document.createElement('p');
+      temp.classList.add('temp_f', 'temps');
+      
+      return temp;
+    }
+
+    // Add display elements to container
+    function addWeatherElements() {
+      content.appendChild(place);
+      content.appendChild(desc);
+      content.appendChild(icon);
+      content.appendChild(tempC);
+      content.appendChild(tempF);
+    }
+    
     /*
       Updates HTML elements for displaying weather data.
       @param {Object} data - Weather data object containing the following properties:
@@ -18,7 +72,9 @@ const displayWeather = (()=> {
       @param {number} data.tempC - The temperature in Celsius.
       @param {number} data.tempF - The temperature in Fahrenheit.
     */  
-    function updateElements(data) {
+    function updateWeatherElements(data) {
+      clearContent();
+      addWeatherElements();
       place.textContent = `${data.area}, ${data.country}`;
       desc.textContent = data.condition;
       icon.src = data.icon;
@@ -27,7 +83,16 @@ const displayWeather = (()=> {
       tempF.textContent = data.tempF + ' \u2109';
     }
 
-    return { updateElements };
+    function displayLoadingIcon() {
+      clearContent();
+      content.appendChild(loader.createLoader());
+    }
+
+    function clearContent() {
+      content.innerHTML = '';
+    }
+
+    return { updateWeatherElements, displayLoadingIcon, clearContent };
 })();
 
 export default displayWeather;

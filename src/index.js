@@ -33,12 +33,13 @@ const queryBox = document.getElementById('queryBox');
 form.addEventListener('submit', getQueryTerm);
 
 // Grab loader
-const loader = document.querySelector('.loader');
+//const loader = document.querySelector('.loader');
 
 // Extract query from search form
 function getQueryTerm(e) {
   e.preventDefault();
-  loader.style.visibility = 'visible'; // show loader on search 
+  //loader.style.visibility = 'visible'; // show loader on search
+  displayWeather.displayLoadingIcon();
   const searchData = new FormData(e.target);
   const query = searchData.get('query');
   queryBox.value = '';
@@ -52,8 +53,8 @@ function getQueryTerm(e) {
 function getWeather(query) {
   callAPI(query)
     .then(data => {
-      loader.style.visibility = 'hidden'; // hide loader once weather is ready to be shown
-      displayWeather.updateElements(processData(data));
+      //loader.style.visibility = 'hidden'; // hide loader once weather is ready to be shown
+      displayWeather.updateWeatherElements(processData(data));
     })
     .catch(e => console.log('Something done went wrong', e));
 }
