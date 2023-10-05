@@ -1,4 +1,4 @@
-import displayWeather from "./displayWeather";
+import display from "./display";
 
 const apiKey = '441a55bf31ca493eadd235239231704';
 
@@ -32,32 +32,25 @@ const form = document.querySelector('.searchForm');
 const queryBox = document.getElementById('queryBox');
 form.addEventListener('submit', getQueryTerm);
 
-// Grab loader
-//const loader = document.querySelector('.loader');
-
 // Extract query from search form
 function getQueryTerm(e) {
   e.preventDefault();
-  //loader.style.visibility = 'visible'; // show loader on search
-  displayWeather.displayLoadingIcon();
+  display.loadingIcon();
   const searchData = new FormData(e.target);
   const query = searchData.get('query');
   queryBox.value = '';
   getWeather(query);
 }
 
-/*
+/**
   Calls API then displays results
   @param {string} query - Search term eg 'London', 'Orlando', 'Copenhagen Denmark' etc
 */
 function getWeather(query) {
   callAPI(query)
     .then(data => {
-      //loader.style.visibility = 'hidden'; // hide loader once weather is ready to be shown
-      displayWeather.updateWeatherElements(processData(data));
+      display.updatedElements(processData(data));
     })
     .catch(e => console.log('Something done went wrong', e));
 }
 
-//getWeather('la').then(data => console.log(data)).catch(err => console.log('cant process data'))
-//getWeather(getQueryTerm()).then(data => console.log(data))
