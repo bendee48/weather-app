@@ -152,7 +152,7 @@ main.container .content h1.place {
 /* Temps */
 
 .temps {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 
 /* Loader */
@@ -175,4 +175,11 @@ main.container .content h1.place {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Error */
+
+.error {
+  padding: 0 1rem;
+  text-align: center;
 }
