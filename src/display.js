@@ -14,6 +14,7 @@ const display = (()=> {
     const icon = createElement('img', {class:  ['icon'], src: '#', alt: 'Weather Icon'});
     const tempC = createElement('p', {class: ['temps', 'temp_c']});
     const tempF = createElement('p', {class: ['temps', 'temp_c']});
+    const errorMsg = createElement('p', {class: ['error']});
 
     /**
      * Creates an HTML element with specified attributes.
@@ -43,7 +44,7 @@ const display = (()=> {
       elements.forEach(el => content.appendChild(el));
     }
     
-    /*
+    /**
       Updates HTML elements for displaying weather data.
       @param {Object} data - Weather data object containing the following properties:
       @param {string} data.area - The name of the city or area.
@@ -75,7 +76,17 @@ const display = (()=> {
       content.innerHTML = '';
     }
 
-    return { updatedElements, loadingIcon, clear };
+    /**
+      Add error message to container
+      @param {String} msg - The error message to display
+    */
+    function error(msg) {
+      clear();
+      content.appendChild(errorMsg);
+      errorMsg.innerHTML = msg;
+    }
+
+    return { updatedElements, loadingIcon, clear, error };
 })();
 
 export default display;

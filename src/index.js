@@ -6,12 +6,14 @@ const apiKey = '441a55bf31ca493eadd235239231704';
 function callAPI(query='london') {
   const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${query}`;
   const result = fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                  return data;
-                })
-                .catch(err => console.log('eRRor', err))
-
+                  .then(response => response.json())
+                  .then(data => {
+                    return data;
+                  })
+                  .catch(err => {
+                    console.log('API error', err) 
+                  })
+                
   return result;
 }
 
@@ -38,19 +40,22 @@ function getQueryTerm(e) {
   display.loadingIcon();
   const searchData = new FormData(e.target);
   const query = searchData.get('query');
-  queryBox.value = '';
   getWeather(query);
 }
 
 /**
-  Calls API then displays results
-  @param {string} query - Search term eg 'London', 'Orlando', 'Copenhagen Denmark' etc
-*/
+ Calls API then displays results
+ @param {string} query - Search term eg 'London', 'Orlando', 'Copenhagen Denmark' etc
+ */
 function getWeather(query) {
   callAPI(query)
-    .then(data => {
+  .then(data => {
       display.updatedElements(processData(data));
+      queryBox.value = '';
     })
-    .catch(e => console.log('Something done went wrong', e));
+    .catch(e => {
+      display.error('No results: Please check spelling. Or be more specific. eg \'Waterloo, London, UK\'. If problem persists the API may not be available, please try again later.');
+      console.log('Something done went wrong. No data.', e);
+    })
 }
 
