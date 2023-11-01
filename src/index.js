@@ -51,6 +51,7 @@ function getWeather(query) {
   callAPI(query)
   .then(data => {
       display.updatedElements(processData(data));
+      // Clear search box if search successful, ready for new search
       queryBox.value = '';
     })
     .catch(e => {
